@@ -1,0 +1,84 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat"><html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex">  <meta name="built-on" content="2023-12-21T14:22:49.8452989"><meta name="build-number" content="${buildNumber}">       <title>Hello World | ModernDocking</title><script id="virtual-toc-data" type="application/json">[]</script><link href="https://resources.jetbrains.com/storage/writerside/v5.14.0/app.css" rel="stylesheet">   <link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><link rel="manifest" href="https://jetbrains.com/site.webmanifest"><link rel="mask-icon" href="https://jetbrains.com/safari-pinned-tab.svg" color="#000000"><meta name="msapplication-TileColor" content="#000000"/><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"/><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"/><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"/><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"/><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"/>  <meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Hello World | ModernDocking"/><meta property="og:description" content=""/><meta property="og:image" content=""/><meta property="og:site_name" content="ModernDocking Help"/><meta property="og:type" content="website"/><meta property="og:locale" content="en_US"/><meta property="og:url" content="/0.11.0-SNAPSHOT/hello-world.html"/><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Hello World | ModernDocking"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json"> { "@context": "http://schema.org", "@type": "WebPage", "@id": "/0.11.0-SNAPSHOT/hello-world.html#webpage", "url": "/0.11.0-SNAPSHOT/hello-world.html", "name": "Hello World | ModernDocking", "description": "", "image": "", "inLanguage":"en-US" }</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json"> { "@type": "WebSite", "@id": "/#website", "url": "/", "name": "ModernDocking Help" }</script><!-- End Schema.org --> <!-- Mermaid light/dark themes -->  <link rel="stylesheet" type="text/css" href="mermaid.css">  </head>    <body data-id="Hello-World" data-main-title="Hello World" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}"  data-template="article"  data-breadcrumbs="Modern-Docking-API.md|Modern Docking API"  >   <div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>ModernDocking 0.11.0-SNAPSHOT Help</h3><div class="shortcuts-switcher"><label for="switch-shortcuts">Keymap:</label><select class="select _shortcuts" height="1" id="switch-shortcuts">  </select></div><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Hello-World" id="Hello-World.md"  >Hello World</h1><p id="14c79316_779" >This page will demonstrate a hello world application with Modern Docking.</p><p id="14c79316_780" >At the end of this page you'll know how to:</p><ul class="list _ul" id="14c79316_781"    ><li class="list__item" id="14c79316_782" ><p>create and register dockables</p></li><li class="list__item" id="14c79316_783" ><p>create and register root panels</p></li><li class="list__item" id="14c79316_784" ><p>dock programmatically</p></li></ul><p id="14c79316_785" >First we will create <code class="code " id="14c79316_786"  >HelloWorld</code> and <code class="code " id="14c79316_787"  >MainFrame</code> classes. <code class="code " id="14c79316_788"  >HelloWorld</code> will contain our <code class="code " id="14c79316_789"  >main</code> method and <code class="code " id="14c79316_790"  >MainFrame</code> will extend <code class="code " id="14c79316_791"  >JFrame</code> to provide the main frame for our application.</p><div class="code-block" data-lang="java"         >
+public class HelloWorld {
+    public static class MainFrame extends JFrame {
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -&gt; new MainFrame().setVisible(true));
+    }
+}
+</div><p id="14c79316_793" >That will give us a very basic application to start working from.</p><p id="14c79316_794" >Now we need to create a constructor that does the following:</p><ul class="list _ul" id="14c79316_795"    ><li class="list__item" id="14c79316_796" ><p>sets a size</p></li><li class="list__item" id="14c79316_797" ><p>initializes Modern Docking</p></li><li class="list__item" id="14c79316_798" ><p>adds a <code class="code " id="14c79316_799"  >RootDockingPanel</code></p></li><li class="list__item" id="14c79316_800" ><p>creates, registers and docks some dockables</p></li></ul><p id="14c79316_801" >First we set a size so that our <code class="code " id="14c79316_802"  >JFrame</code> shows up on screen in a reasonable way</p><div class="code-block" data-lang="java"         >
+setSize(400, 300);
+</div><p id="14c79316_804" >Next step is to initialize the docking framework.</p><div class="code-block" data-lang="java"         >
+Docking.initialize(this);
+</div><p id="14c79316_806" >This will initialize the docking framework with our <code class="code " id="14c79316_807"  >MainFrame</code> class as the Main Frame of the application. This also initializes internal components in the framework that are needed later.</p><p id="14c79316_808" >Next, we create and add a <code class="code " id="14c79316_809"  >RootDockingPanel</code>. This can be further customized if you want to use a different layout or have other custom components surrounding the dockable area. For now, we're going to simple use a <code class="code " id="14c79316_810"  >BorderLayout</code> (the default <code class="code " id="14c79316_811"  >JFrame</code> layout manager) and let the root consume all the space.</p><div class="code-block" data-lang="java"         >
+RootDockingPanel root = new RootDockingPanel(this);
+add(root, BorderLayout.CENTER);
+</div><p id="14c79316_813" >This creates a new root and adds it to the <code class="code " id="14c79316_814"  >JFrame</code>. <code class="code " id="14c79316_815"  >this</code> is passed to tell the <code class="code " id="14c79316_816"  >RootDockingPanel</code> what <code class="code " id="14c79316_817"  >Window</code> it belongs to. This is used to register the panel with the docking framework and to create any toolbars required for pinning.</p><p id="14c79316_818" >Next, we will create a dockable. This will involve creating a new <code class="code " id="14c79316_819"  >JPanel</code> that extends the <code class="code " id="14c79316_820"  >Dockable</code> interface. Most of the methods in the <code class="code " id="14c79316_821"  >Dockable</code> interface have default implementations and are not required to be implemented.</p><p id="14c79316_822" >The following methods are required to be implemented: | Method | Description | | ------ | ----------- | | <code class="code " id="14c79316_823"  >getPersistentID</code> | A unique identifier for the dockable within the docking framework | | <code class="code " id="14c79316_824"  >getTabText</code> | The text to display on the titlebar and on a <code class="code " id="14c79316_825"  >JTabbedPane</code> tab, if docked into a tab group |</p><p id="14c79316_826" >We will make a simple panel that takes text as the lone constructor argument and uses it as the persistentID and tab text.</p><div class="code-block" data-lang="java"         >
+static class DockingPanel extends JPanel implements Dockable {
+    private final String text;
+
+    public DockingPanel(String text) {
+        this.text = text;
+
+        Docking.registerDockable(this);
+    }
+
+    @Override
+    public String getPersistentID() {
+        return text;
+    }
+
+    @Override
+    public String getTabText() {
+        return text;
+    }
+}
+</div><p id="14c79316_828" >Now that we've created a panel that implements <code class="code " id="14c79316_829"  >Dockable</code> we can start creating dockables in our constructor.</p><div class="code-block" data-lang="java"         >
+DockingPanel helloWorld = new DockingPanel(&quot;Hello World&quot;);
+</div><p id="14c79316_831" >This will register the dockable with the docking framework. The persistentID will be used to uniquely identify the dockable throughout the framework. In more complicated applications we would call <code class="code " id="14c79316_832"  >Docking.registerDockable</code> from within the constructor of our panel, as shown below.</p><p id="14c79316_833" >We can now dock the dockable. First, we can do this with the panel reference directly.</p><div class="code-block" data-lang="java"         >
+Docking.dock(helloWorld, this);
+</div><p id="14c79316_835" >or, we can use the persistentID value:</p><div class="code-block" data-lang="java"         >
+Docking.dock(&quot;Hello World&quot;, this);
+</div><p id="14c79316_837" >In both cases <code class="code " id="14c79316_838"  >this</code> again refers to our <code class="code " id="14c79316_839"  >MainFrame</code>, requesting that the framework dock our panel to this frame.</p><p id="14c79316_840" >Now we have a complete sample that will create a <code class="code " id="14c79316_841"  >JFrame</code> with a dockable with the display text of &quot;Hello World&quot;. Full sample is shown below:</p><div class="code-block" data-lang="java"         >
+public class HelloWorld {
+    static class DockingPanel extends JPanel implements Dockable {
+        private final String text;
+
+        public DockingPanel(String text) {
+            this.text = text;
+            
+            Docking.registerDockable(this);
+        }
+        
+        @Override
+        public String getPersistentID() {
+            return text;
+        }
+        
+        @Override
+        public String getTabText() {
+            return text;
+        }
+    }
+
+    public static class MainFrame extends JFrame {
+        public MainFrame() {
+            setSize(400, 300);
+
+            Docking.initialize(this);
+
+            RootDockingPanel root = new RootDockingPanel(this);
+            add(root, BorderLayout.CENTER);
+
+            DockingPanel helloWorld = new DockingPanel(&quot;Hello World&quot;);
+
+            Docking.dock(helloWorld, this);
+        }
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -&gt; new MainFrame().setVisible(true));
+    }
+}
+</div><div class="last-modified"> Last modified: 21 December 2023</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom">  <a class="navigation-links__prev" href="dockable-properties.html">Dockable Properties</a>   <a class="navigation-links__next" href="dockable-interface.html">Dockable Interface</a>  </div></article><div id="disqus_thread"></div></div></section></main></div>  <script src="https://resources.jetbrains.com/storage/writerside/v5.14.0/app.js"></script></body></html>
